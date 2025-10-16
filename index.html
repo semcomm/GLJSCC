@@ -1,0 +1,656 @@
+
+<!-- saved from url=(0041)https://semcomm.github.io/ResilientAudio/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><div class="contents">
+        <h1>Audio Samples for "LOW-BANDWIDTH HIGH-FIDELITY SPEECH TRANSMISSION WITH GENERATIVE LATENT JOINT SOURCE-CHANNEL CODING"</h1>
+        <div class="ShowPictures">
+            <img src="./semcomm.github.io_files/archi1_3.png" width="800" >
+        </div>
+        
+        <div style="margin:20px;border:1px solid #CCC "></div>
+
+<!-- ===================== 三类方案介绍 ===================== -->
+
+<div style="margin:20px;border:1px solid #CCC "></div>
+
+        <!-- ===================== 三类方案介绍 ===================== -->
+
+        <p margin="10px"></p>
+        <h3 style="margin:10px;padding:0;line-height:20px">Traditional audio codec + 5G LDPC (separated):</h3>
+        <br>
+        <b style="margin:10px;padding:0;">AMR-WB + 5G LDPC:</b> A traditional wideband speech codec standardized by 3GPP, combined with 5G LDPC channel coding. This pipeline performs separate source and channel coding, serving as a baseline for separated transmission.  
+        <br>
+        <b style="margin:10px;padding:0;">Opus + 5G LDPC:</b> A modern low-delay audio codec supporting variable bit rates. With 5G LDPC error correction, it represents a strong traditional separated transmission scheme.  
+        <br>
+        <b style="margin:10px;padding:0;"></b>J.-M. Valin, et al., “Definition of the Opus audio codec,” IETF RFC 6716, 2012.  
+        <br>
+        <br>
+
+        <h3 style="margin:10px;padding:0;line-height:20px">Neural audio codec + 5G LDPC (separated):</h3>
+        <br>
+        <b style="margin:10px;padding:0;">Encodec + 5G LDPC:</b> A neural audio codec developed by Meta using residual vector quantization (RVQ). Coupled with 5G LDPC, it performs neural compression followed by conventional error protection, representing a neural-based separated approach.  
+        <br>
+        <b style="margin:10px;padding:0;">SoundStream + 5G LDPC:</b> Google’s end-to-end neural audio codec employing residual quantization and streaming-friendly design. Integrated with 5G LDPC, it serves as another strong separated benchmark.  
+        <br>
+        <b style="margin:10px;padding:0;"></b>N. Zeghidour et al., “SoundStream: An end-to-end neural audio codec,” IEEE/ACM TASLP, vol. 30, pp. 495–507, 2021.  
+        <br>
+        <br>
+
+        <h3 style="margin:10px;padding:0;line-height:20px">Joint source–channel coding (JSCC):</h3>
+        <br>
+        <b style="margin:10px;padding:0;">DeepSC:</b> A deep learning–based joint source–channel coding framework for semantic communication, which integrates compression and channel protection in an end-to-end manner.  
+        <br>
+        <b style="margin:10px;padding:0;">GL-JSCC (Ours):</b> A generative latent joint source-channel coding framework that performs JSCC in the RVQ-GAN-learned perceptual latent space with a streaming Transformer and three-stage progressive training, enabling high-fidelity speech transmission under low bandwidth, low SNR, and fading channels while saving up to 60% bandwidth compared to existing schemes.  
+        <br>
+
+
+        <!-- ======================================================= -->
+
+        <p></p>
+
+        <div style="margin:30px; border:1px solid #CCC "></div> 
+
+        <!-- ======= SNR 左右对比：6 行 x 3 列（CSS + HTML） ======= -->
+        <style>
+        .snr-compare-wrapper {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+        justify-content: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+        }
+        /* 每个 SNR 区块样式 */
+        .snr-block {
+        flex: 1 1 460px;
+        min-width: 380px;
+        border: 1px solid #e6e6e6;
+        border-radius: 8px;
+        padding: 12px;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .snr-title { text-align:center; font-weight:700; color:#2563eb; margin-bottom:10px; }
+        
+        /* 表格头（Sample列名）*/
+        .table-head {
+        display: grid;
+        grid-template-columns: 140px repeat(3, 1fr);
+        gap: 8px;
+        align-items: center;
+        background:#fafafa;
+        padding:8px;
+        border-radius:6px;
+        font-weight:600;
+        text-align:center;
+        margin-bottom:8px;
+        }
+        
+        /* 每一行：方法名 + 三个音频单元格 */
+        .table-row {
+        display: grid;
+        grid-template-columns: 140px repeat(3, 1fr);
+        gap: 8px;
+        align-items: center;
+        padding:8px 6px;
+        border-bottom: 1px dashed #f0f0f0;
+        }
+        .method-name {
+        font-weight:600;
+        color:#333;
+        text-align:center;
+        background:#fff;
+        padding:6px;
+        border-right:1px solid #fafafa;
+        }
+        
+        /* 单元格内播放器 */
+        .cell-audio {
+        text-align:center;
+        }
+        .cell-audio audio {
+        width:100%;
+        max-width:220px;
+        display:inline-block;
+        }
+        
+        /* 中间虚线分隔 */
+        .divider-vertical {
+        width:2px;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 6px,
+            #ccc 6px,
+            #ccc 8px
+        );
+        border-radius:2px;
+        align-self: stretch;
+        }
+        
+        /* 响应式：窄屏时纵向排列 */
+        @media (max-width: 960px) {
+        .snr-compare-wrapper { flex-direction: column; gap:18px; }
+        .table-head, .table-row { grid-template-columns: 110px repeat(3, 1fr); }
+        .cell-audio audio { max-width:100%; }
+        }
+        </style>
+        
+        <div class="snr-compare-wrapper">
+        <!-- 左：SNR = 2 dB -->
+        <div class="snr-block" aria-label="SNR 2 dB comparison">
+            <div class="snr-title">SNR = 2 dB</div>
+        
+            <div class="table-head" role="row">
+            <div></div>
+            <div>Sample 1</div>
+            <div>Sample 2</div>
+            <div>Sample 3</div>
+            </div>
+        
+            <!-- 方法 1：Reference -->
+            <div class="table-row" role="row">
+            <div class="method-name">Reference</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ref/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ref/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ref/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 2：GL-JSCC -->
+            <div class="table-row">
+            <div class="method-name">GL-JSCC<br>(Ours 1kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ours/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ours/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/ours/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 3：Encodec -->
+            <div class="table-row">
+            <div class="method-name">Encodec<br>+ 5G LDPC<br>(1kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/stream_dac/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/stream_dac/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/stream_dac/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 4：Opus -->
+            <div class="table-row">
+            <div class="method-name">Opus<br>+ 5G LDPC<br>(6kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/opus/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/opus/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/opus/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 5：AMR-WB -->
+            <div class="table-row">
+            <div class="method-name">AMR-WB<br>+ 5G LDPC<br>(6kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/amr-wb/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/amr-wb/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/amr-wb/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 6：DeepSC-S -->
+            <div class="table-row" style="border-bottom:none;">
+            <div class="method-name">DeepSC-SC<br>(12kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/DEEPSC-S/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/DEEPSC-S/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr2/DEEPSC-S/3.wav"></audio></div>
+            </div>
+        </div>
+        
+        <!-- 中间虚线 -->
+        <div class="divider-vertical" aria-hidden="true"></div>
+        
+        <!-- 右：SNR = 6 dB -->
+        <div class="snr-block" aria-label="SNR 6 dB comparison">
+            <div class="snr-title">SNR = 6 dB</div>
+        
+            <div class="table-head" role="row">
+            <div></div>
+            <div>Sample 1</div>
+            <div>Sample 2</div>
+            <div>Sample 3</div>
+            </div>
+        
+            <!-- 方法 1：Reference -->
+            <div class="table-row">
+            <div class="method-name">Reference</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ref/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ref/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ref/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 2：GL-JSCC -->
+            <div class="table-row">
+            <div class="method-name">GL-JSCC<br>(Ours 1kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ours/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ours/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/ours/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 3：Encodec -->
+            <div class="table-row">
+            <div class="method-name">Encodec<br>+ 5G LDPC<br>(1kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/stream_dac/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/stream_dac/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/stream_dac/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 4：Opus -->
+            <div class="table-row">
+            <div class="method-name">Opus<br>+ 5G LDPC<br>(2kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/opus/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/opus/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/opus/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 5：AMR-WB -->
+            <div class="table-row">
+            <div class="method-name">AMR-WB<br>+ 5G LDPC<br>(2kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/amr-wb/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/amr-wb/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/amr-wb/3.wav"></audio></div>
+            </div>
+        
+            <!-- 方法 6：DeepSC-S -->
+            <div class="table-row" style="border-bottom:none;">
+            <div class="method-name">DeepSC-S<br>(12kHz)</div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/DEEPSC-S/1.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/DEEPSC-S/2.wav"></audio></div>
+            <div class="cell-audio"><audio controls src="./organized_audio_snr6/DEEPSC-S/3.wav"></audio></div>
+            </div>
+        </div>
+        </div>
+        <!-- ======= 结束 ======= -->
+    
+          
+
+
+
+    <p align="center" style="width: 100%; align: center;color:#808080"> All rights reserved </p>
+
+<!--{% endblock %}-->
+
+<!--{% block head %}-->
+    <!--{{ super() }}-->
+    <style>
+        .ShowPictures{
+            text-align: center;
+        }
+        .EmptyBetweenPictures{
+            width: 450px;
+        }
+        .EmptyBetweenAudio{
+            width:30px;
+        }
+        .EmptyBetweenMusic{
+            width:30px;
+        }
+        .Empty{
+            width:206px;
+        }
+        .GroupNumber{
+            display:flex;
+        }
+        .GroupNumberIndex{
+            width: 33.33%;
+            text-align: center;
+        }
+        .groupname{
+            margin-left:20px;
+            margin-right:20px;
+            width: 206px;
+        }
+        .group2name{
+            margin-left:20px;
+            width: 206px;
+        }
+        .ShowAudio{
+            width: auto;
+            margin: 10px auto;
+            display: flex;
+            text-align: center;
+            align-items: center;
+        }
+        .ShowAudio2{
+            width: 33.33%;
+            margin: 30px auto;
+            display: flex;
+            text-align: center;
+            align-items: center;
+        }
+        .audiobackgroundblue{
+            background: aqua;
+        }
+        .ReferenceAudio{
+            width: 500px;
+            margin: 30px auto;
+            display: flex;
+            text-align: left;
+            align-items: left;
+        }
+        .RatingAudioBox{
+            width: 5000px;
+            text-align: left;
+            align-items: center;
+            display: flex;
+        }
+        .RatingBar{
+            position: relative;
+            width: 900px;
+            display: inline-block;
+        }
+        #range1{
+            position: absolute;
+            margin-top: 3px;
+            -webkit-appearance: none;
+            background: #999;
+            height: 5px;
+            outline: none;
+            width: 500px;
+        }
+        input[type=range]::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: red;
+        }
+        .GreenRange1{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 3px;
+            width: 0px;
+            height: 5px;
+            background: green;
+            top: 0px;
+            left: 0;
+        }
+        .RatingRange1{
+            position: absolute;
+            display: inline;
+            margin-top: 10px;
+        }
+        .RatingValue1{
+            display: inline-block;
+            font-size: 20px;
+            text-align: left;
+            width: 40px;
+        }
+        #range2{
+            position: absolute;
+            margin-top: 3px;
+            -webkit-appearance: none;
+            background: #999;
+            height: 5px;
+            outline: none;
+            width: 500px;
+        }
+        .GreenRange2{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 3px;
+            width: 0px;
+            height: 5px;
+            background: green;
+            top: 0px;
+            left: 0;
+        }
+        .RatingRange2{
+            position: absolute;
+            display: inline;
+            margin-top: 10px;
+        }
+        .RatingValue2{
+            display: inline-block;
+            font-size: 20px;
+            text-align: left;
+            width: 40px;
+        }
+        #range3{
+            position: absolute;
+            margin-top: 3px;
+            -webkit-appearance: none;
+            background: #999;
+            height: 5px;
+            outline: none;
+            width: 500px;
+        }
+        .GreenRange3{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 3px;
+            width: 0px;
+            height: 5px;
+            background: green;
+            top: 0px;
+            left: 0;
+        }
+        .RatingRange3{
+            position: absolute;
+            display: inline;
+            margin-top: 10px;
+        }
+        .RatingValue3{
+            display: inline-block;
+            font-size: 20px;
+            text-align: left;
+            width: 40px;
+        }
+        #range4{
+            position: absolute;
+            margin-top: 3px;
+            -webkit-appearance: none;
+            background: #999;
+            height: 5px;
+            outline: none;
+            width: 500px;
+        }
+        .GreenRange4{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 3px;
+            width: 0px;
+            height: 5px;
+            background: green;
+            top: 0px;
+            left: 0;
+        }
+        .RatingRange4{
+            position: absolute;
+            display: inline;
+            margin-top: 10px;
+        }
+        .RatingValue4{
+            display: inline-block;
+            font-size: 20px;
+            text-align: left;
+            width: 40px;
+        }
+        #range5{
+            position: absolute;
+            margin-top: 3px;
+            -webkit-appearance: none;
+            background: #999;
+            height: 5px;
+            outline: none;
+            width: 500px;
+        }
+        .GreenRange5{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 3px;
+            width: 0px;
+            height: 5px;
+            background: green;
+            top: 0px;
+            left: 0;
+        }
+        .RatingRange5{
+            position: absolute;
+            display: inline;
+            margin-top: 10px;
+        }
+        .RatingValue5{
+            display: inline-block;
+            font-size: 20px;
+            text-align: left;
+            width: 40px;
+        }
+
+
+        .pictureGroupBox {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .pictureBox {
+            height: auto;
+            width: 450px;
+            align-items: center;
+        }
+
+        .pictureBoxEmpty {
+            height: auto;
+            width: 25px;
+            align-items: center;
+        }
+
+        .pictureTag {
+            height: auto;
+            width: auto;
+            text-align: center;
+        }
+
+        .pictureItem {
+            height: auto !important;
+            width: 100%;
+        }
+
+        .submit-button {
+            width: 120px;
+            height: 48px;
+            background: #da9e3f;
+            border-radius: 0 6px 6px 0;
+            line-height: 48px;
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .contents {
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+
+        .contents .left {
+            width: 280px;
+        }
+
+        .contents .left .sidebar {
+            position: sticky;
+            width: 280px;
+            top: 130px;
+        }
+
+        .contents .left .sidebar .anchor {
+            width: 100%;
+            overflow: hidden;
+            background: hsla(0, 0%, 100%, .6);
+        }
+
+        .contents .left .sidebar .anchor .item {
+            width: 100%;
+            height: 60px;
+            border-bottom: 1px solid hsla(0, 0%, 100%, .2);
+            text-align: center;
+            line-height: 60px;
+            color: #182435;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all .5s;
+        }
+    </style>
+<!--{% endblock head %}-->
+
+<!--{% block scripts %}-->
+    <!--{{ super() }}-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var audioElement = document.createElement('audio');
+            {#  audioElement.setAttribute('src', 'E:/code/web/tklaudio/bluelog/static/audio/1/1.WAV.wav');#}
+            audioElement.setAttribute('src', 'http://www.soundjay.com/mechanical/camera-shutter-click-01.wav');
+            audioElement.addEventListener('ended', function() {
+                this.play();
+            }, false);
+            audioElement.addEventListener("canplay",function(){
+                $("#length").text("Duration:" + audioElement.duration + " seconds");
+                $("#source").text("Source:" + audioElement.src);
+                $("#status").text("Status: Ready to play").css("color","green");
+            });
+            audioElement.addEventListener("timeupdate",function(){
+                $("#currentTime").text("Current second:" + audioElement.currentTime);
+            });
+            $('#play').click(function() {
+                audioElement.play();
+                $("#status").text("Status: Playing");
+            });
+            $('#pause').click(function() {
+                audioElement.pause();
+                $("#status").text("Status: Paused");
+            });
+            $('#restart').click(function() {
+                audioElement.currentTime = 0;
+            }); 
+        });
+
+ 
+    </script>
+<!-- ======= SNR 左右并列：每侧 3 行 x 6 列（方法）对比 ======= -->
+<style>
+    .snr-compare-wrap {
+      display:flex;
+      gap:28px;
+      align-items:flex-start;
+      justify-content:center;
+      margin:24px 0;
+      flex-wrap:wrap;
+    }
+    .snr-block {
+      flex:1;
+      min-width:520px;
+      border:1px solid #eee;
+      padding:14px;
+      border-radius:6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      background:#fff;
+    }
+    .snr-title {
+      text-align:center;
+      font-weight:700;
+      color:#2b6db3;
+      margin-bottom:12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 120px repeat(6, 1fr); /* 左侧Sample标签 + 6 列方法 */
+      gap:10px;
+      align-items:center;
+    }
+    .grid .head {
+      font-weight:600;
+      text-align:center;
+      padding:8px 6px;
+      border-bottom:1px solid #f0f0f0;
+    }
+    .grid .sample-label {
+      padding:8px 6px;
+      color:#444;
+      font-weight:600;
+      text-align:center;
+      border-right:1px solid #f5f5f5;
+    }
+</div></body></html>
